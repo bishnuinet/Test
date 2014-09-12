@@ -1,0 +1,69 @@
+//strCheck = true;
+function getCampaign()
+{
+var aCampaign = Xrm.Page.getAttribute("mogo_campaign_analytic").getValue()[0].id;
+
+if(aCampaign !=null)	
+{
+var ODATA_ENTITYCollection = "/mogo_campaignSet(guid'"+aCampaign+"')";
+var lookupurl = getEndpoint() + ODATA_ENTITYCollection;
+//alert(lookupurl);
+$.ajax({
+  Type: "GET",
+  contentType: "application/json; charsetutf-8",
+  datatype: "json",
+  url: lookupurl,
+  beforeSend: function (XMLHttpRequest){
+  XMLHttpRequest.setRequestHeader ("Accept","application/json");
+  },
+  success: function (data, textStatus, XmlHttpRequest) {
+  var LoanOfferamount1 = Number(data.d.mogo_LoanOfferAmount1);
+   var LoanOfferamount2 = Number(data.d.mogo_LoanOfferAmount2);
+
+  var ProductType1 = data.d.mogo_PrductType1Hidden;
+  var ProductType2 = data.d.mogo_PrductType2Hidden;
+
+if(ProductType1 != null){
+  Xrm.Page.getAttribute("mogo_loanoffer1type").setValue(ProductType1.toString());  
+}
+if(ProductType2 != null){
+  Xrm.Page.getAttribute("mogo_loanoffer2type").setValue(ProductType2.toString());  
+}
+
+ if(LoanOfferamount1!=null){
+   Xrm.Page.getAttribute("mogo_loanofferamount").setValue(LoanOfferamount1);
+   }
+   if(LoanOfferamount2!=null){
+   Xrm.Page.getAttribute("mogo_loanofferamount2").setValue(LoanOfferamount2);
+   }
+  
+},
+  error: function (XmlHttpRequest, textStatus, errorThrown){
+  alert("Failed in check! " +textStatus+ ": " + errorThrown);
+  }
+});
+}
+}
+
+function getEndpoint()
+{
+var serverUrl = Xrm.Page.context.getServerUrl();
+if(serverUrl.match(/\/$/))
+{
+	serverUrl = serverUrl.substring(0,serverUrl.length - 1);
+}	
+return serverUrl + "/XRMServices/2011/OrganizationData.svc";
+}
+function GetProductType()
+{
+var getPtype1 = Xrm.Page.getAttribute("mogo_producttype1").getValue();
+var getPtype2 = Xrm.Page.getAttribute("mogo_producttype2").getValue();
+if(getPtype1 !=null){
+var setType = getPtype1.toString();
+Xrm.Page.getAttribute("mogo_prducttype1hidden").setValue(setType);
+}
+if(getPtype2 !=null){
+var setType = getPtype2.toString();
+Xrm.Page.getAttribute("mogo_prducttype2hidden").setValue(setType);
+}
+}

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="JS\mogo_campaign_Info059FEF42-8B84-E311-8972-024316DEDBE1" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

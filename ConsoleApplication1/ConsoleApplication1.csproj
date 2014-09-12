@@ -47,9 +47,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+<<<<<<< HEAD
   <ItemGroup>
     <Folder Include="JS\" />
   </ItemGroup>
+=======
+>>>>>>> fe6ec3b04e8a7a3b7a5141592fdbcbf35a749ae2
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
